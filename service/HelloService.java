@@ -10,6 +10,8 @@ import com.springboot.employeeapplication.dto.HelloModelDTO;
 import com.springboot.employeeapplication.entity.HelloModel;
 import com.springboot.employeeapplication.repository.HelloRepository;
 
+import jakarta.validation.Valid;
+
 @Service
 public class HelloService implements IHelloService {
 
@@ -52,6 +54,17 @@ public class HelloService implements IHelloService {
 		user.setNote(model.getNote());
 		repository.save(user);
 		return user;
+	}
+
+	@Override
+	public HelloModel updatefirstname(int id, String firstname) {
+		Optional<HelloModel> user = repository.findById(id);
+		if (user.isPresent()) {
+			user.get().setName(firstname);
+		}
+		repository.save(user.get());
+		return user.get();
+
 	}
 
 }

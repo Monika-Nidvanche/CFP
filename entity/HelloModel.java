@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class HelloModel {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int employeeId;
 	
 	private String name;
