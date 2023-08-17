@@ -5,8 +5,6 @@ import java.util.List;
 import com.springboot.employeeapplication.dto.HelloModelDTO;
 import com.springboot.employeeapplication.entity.HelloModel;
 
-import jakarta.validation.Valid;
-
 public interface IHelloService {
 
 	HelloModel postUser(HelloModelDTO model);

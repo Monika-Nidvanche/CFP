@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.employeeapplication.dto.HelloModelDTO;
 import com.springboot.employeeapplication.entity.HelloModel;
+import com.springboot.employeeapplication.exception.EmployeeApplicationException;
 import com.springboot.employeeapplication.repository.HelloRepository;
-
-import jakarta.validation.Valid;
 
 @Service
 public class HelloService implements IHelloService {
@@ -33,27 +32,31 @@ public class HelloService implements IHelloService {
 	@Override
 	public HelloModel getUser(int id) {
 		Optional<HelloModel> user = repository.findById(id);
-		return user.get();
+		if (user.isPresent()) {
+			return user.get();
+		} 
+		else throw new EmployeeApplicationException("Employee Not Found");
 	}
 
 	@Override
 	public String deleteUser(int id) {
-		repository.deleteById(id);
-		return "User deleted for Id " + id;
+		Optional<HelloModel> user = repository.findById(id);
+		if (user.isPresent()) {
+			repository.deleteById(id);
+			return "User deleted for Id " + id;
+		} 
+		else throw new EmployeeApplicationException("Employee Not Found");
 	}
 
 	@Override
 	public HelloModel update(int id, HelloModelDTO model) {
-		HelloModel user = repository.findById(id).get();
-		user.setName(model.getName());
-		user.setGender(model.getGender());
-		user.setStartDate(model.getStartDate());
-		user.setSalary(model.getSalary());
-		user.setProfilePic(model.getProfilePic());
-		user.setDepartment(model.getDepartment());
-		user.setNote(model.getNote());
-		repository.save(user);
-		return user;
+		Optional<HelloModel> user = repository.findById(id);
+		if (user.isPresent()) {
+			HelloModel updateuser = new HelloModel(model);
+			repository.save(updateuser);
+			return updateuser;
+		} 
+		else throw new EmployeeApplicationException("Employee Not Found");
 	}
 
 	@Override
@@ -61,10 +64,11 @@ public class HelloService implements IHelloService {
 		Optional<HelloModel> user = repository.findById(id);
 		if (user.isPresent()) {
 			user.get().setName(firstname);
+			repository.save(user.get());
+			return user.get();
 		}
-		repository.save(user.get());
-		return user.get();
-
+		else throw new EmployeeApplicationException("Employee Not Found");
+		
 	}
 
 }
