@@ -19,4 +19,8 @@ public interface IHelloService {
 
 	HelloModel updatefirstname(int id, String firstname);
 
+	HelloModel getbyname(String name);
+
+	List<HelloModel> deptbyname(String dept);
+
 }

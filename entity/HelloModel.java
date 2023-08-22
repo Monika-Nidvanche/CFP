@@ -5,10 +5,13 @@ import java.util.List;
 
 import com.springboot.employeeapplication.dto.HelloModelDTO;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,8 +29,11 @@ public class HelloModel {
 	private Date startDate;
 	private long salary;
 	private String profilePic;
-	private List<String> department;
 	private String note;
+	
+	@ElementCollection
+	@CollectionTable(name="emp_department", joinColumns = @JoinColumn(name="dID"))
+	private List<String> department;
 
 	public HelloModel(HelloModelDTO model) {
 		this.name = model.getName();

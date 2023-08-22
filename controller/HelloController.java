@@ -70,5 +70,19 @@ public class HelloController {
 		return new ResponseEntity<responseDTO>(response, HttpStatus.ACCEPTED);	
 		
 	}
+	
+	@GetMapping("/{name}")
+	public ResponseEntity<responseDTO> getByName(@PathVariable String name){
+		HelloModel user = service.getbyname(name);
+		responseDTO response = new responseDTO("User for name "+user.getName(),user);
+		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
+	}
+	
+	@GetMapping("/deptByName/{dept}")
+	public ResponseEntity<responseDTO> deptByName(@PathVariable String dept){
+		List<HelloModel> user = service.deptbyname(dept);
+		responseDTO response = new responseDTO("User for department "+dept,user);
+		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
+	}
 
 }

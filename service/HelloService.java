@@ -50,11 +50,17 @@ public class HelloService implements IHelloService {
 
 	@Override
 	public HelloModel update(int id, HelloModelDTO model) {
-		Optional<HelloModel> user = repository.findById(id);
-		if (user.isPresent()) {
-			HelloModel updateuser = new HelloModel(model);
-			repository.save(updateuser);
-			return updateuser;
+		HelloModel user = repository.findById(id).get();
+		if (user != null) {
+			user.setName(model.getName());
+			user.setGender(model.getGender());
+			user.setStartDate(model.getStartDate());
+			user.setSalary(model.getSalary());
+			user.setProfilePic(model.getProfilePic());
+			user.setDepartment(model.getDepartment());
+			user.setNote(model.getNote());
+			repository.save(user);
+			return user;
 		} 
 		else throw new EmployeeApplicationException("Employee Not Found");
 	}
@@ -69,6 +75,18 @@ public class HelloService implements IHelloService {
 		}
 		else throw new EmployeeApplicationException("Employee Not Found");
 		
+	}
+
+	@Override
+	public HelloModel getbyname(String name) {
+		HelloModel user = repository.findByName(name);
+		return user;
+	}
+
+	@Override
+	public List<HelloModel> deptbyname(String dept) {
+		List<HelloModel> user = repository.findAllByDepartment(dept);
+		return user;
 	}
 
 }
