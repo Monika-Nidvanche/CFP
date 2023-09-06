@@ -10,6 +10,7 @@ import com.bookstore.bookstoreapplication.entity.UserModel;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
+	// Get data by Email
 	Optional<UserModel> findByEmail(String email);
 
 }

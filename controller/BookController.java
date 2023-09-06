@@ -29,6 +29,7 @@ public class BookController {
 	@Autowired
 	IBookService service;
 
+	// Add data
 	@PostMapping("/insert")
 	public ResponseEntity<responseDTO> insert(@Valid @RequestBody BookDTO model) {
 
@@ -38,6 +39,7 @@ public class BookController {
 
 	}
 
+	// Get data
 	@GetMapping("/getAll")
 	public ResponseEntity<responseDTO> getAll() {
 
@@ -47,6 +49,7 @@ public class BookController {
 
 	}
 
+	// Get data by Id
 	@GetMapping("/getById/{Id}")
 	public ResponseEntity<responseDTO> getById(@PathVariable int Id) {
 
@@ -56,6 +59,7 @@ public class BookController {
 
 	}
 	
+	// Delete data by Id
 	@DeleteMapping("/deleteById/{Id}")
 	public ResponseEntity<responseDTO> deleteById(@PathVariable int Id) {
 
@@ -65,6 +69,7 @@ public class BookController {
 
 	}
 	
+	// Update data by Id
 	@PutMapping("/updateBookById/{Id}")
 	public ResponseEntity<responseDTO> updateById(@PathVariable int Id, @Valid @RequestBody BookDTO model) {
 
@@ -74,15 +79,17 @@ public class BookController {
 
 	}
 
-	@GetMapping("/searchByBookName")
-	public ResponseEntity<responseDTO> searchByName(@RequestParam String bookName) {
+	// Search by book name
+	@GetMapping("/searchByBookName/{bookname}")
+	public ResponseEntity<responseDTO> searchByName(@PathVariable String bookname) {
 
-		List<BookModel> book = service.searchByName(bookName);
+		List<BookModel> book = service.searchByName(bookname);
 		responseDTO response = new responseDTO("List of book", book);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.ACCEPTED);
 
 	}
 	
+	// Update book quantity
 	@PutMapping("/updateQuantity/{Id}")
 	public ResponseEntity<responseDTO> updateQuantityById(@PathVariable int Id, 
 			@RequestParam String quantity) {
@@ -93,6 +100,7 @@ public class BookController {
 
 	}
 	
+	// Get data by Ascending order
 	@GetMapping("/sortingAsce")
 	public ResponseEntity<responseDTO> sortingAsce() {
 
@@ -102,6 +110,7 @@ public class BookController {
 
 	}
 	
+	// Get data by Descending order
 	@GetMapping("/sortingDesc")
 	public ResponseEntity<responseDTO> sortingDesc() {
 

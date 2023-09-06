@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookstore.bookstoreapplication.dto.LoginDto;
@@ -110,10 +111,10 @@ public class UserController {
 	
 	// Reset password/forgot password
 	@PutMapping("/forgotpassword")
-	public ResponseEntity<responseDTO> forgotPassword(@Valid @RequestBody LoginDto model) {
+	public ResponseEntity<responseDTO> forgotPassword(@RequestParam String email, 
+			@RequestParam String newPassword) {
 
-		String message = service.forgotPassword(model);
-		
+		String message = service.forgotPassword(email, newPassword);
 		responseDTO response = new responseDTO("Password reset successful", message);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
 
@@ -121,8 +122,10 @@ public class UserController {
 	
 	// Reset password/change password
 	@PutMapping("/resetPassword")
-	public ResponseEntity<responseDTO> resetPassword(@Valid @RequestBody LoginDto model) {
-		String message = service.resetPassword(model);
+	public ResponseEntity<responseDTO> resetPassword(@RequestParam String email, 
+			@RequestParam String password, @RequestParam String newPassword) {
+		
+		String message = service.resetPassword(email,password,newPassword);
 		responseDTO response = new responseDTO("Password reset successful", message);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
 

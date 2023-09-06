@@ -26,6 +26,7 @@ public class UserService implements IUserService {
 	@Autowired
 	BookStoreEmailSenderService emailsender;
 
+	// User Registration
 	@Override
 	public UserModel register(UserDTO model) {
 		UserModel user = new UserModel(model);
@@ -39,11 +40,13 @@ public class UserService implements IUserService {
 		return user;
 	}
 
+	// Get data
 	@Override
 	public List<UserModel> getAll() {
 		return repository.findAll();
 	}
 
+	// Get data by Id
 	@Override
 	public UserModel getById(int id) {
 		Optional<UserModel> user = repository.findById(id);
@@ -53,6 +56,7 @@ public class UserService implements IUserService {
 		else throw new BookStoreException("User Not Found");
 	}
 
+	// Get data by Email
 	@Override
 	public UserModel getByEmail(String email) {
 		Optional<UserModel> user = repository.findByEmail(email);
@@ -62,6 +66,7 @@ public class UserService implements IUserService {
 		else throw new BookStoreException("User Not Found");
 	}
 
+	// Delete data by Id
 	@Override
 	public String deleteById(int id) {
 		Optional<UserModel> user = repository.findById(id);
@@ -76,6 +81,7 @@ public class UserService implements IUserService {
 		else throw new BookStoreException("User Not Found");
 	}
 
+	// Update data by Email
 	@Override
 	public UserModel updateByEmail(String email, UserDTO model) {
 		Optional<UserModel> user = repository.findByEmail(email);
@@ -94,12 +100,14 @@ public class UserService implements IUserService {
 		else throw new BookStoreException("User Not Found");
 	}
 	
+	// Get data by token
 	@Override
 	public UserModel getByToken(String token) {
 		int userId = bookstoretoken.decodeToken(token);
 		return repository.findById(userId).get();
 	}
 
+	// Login
 	@Override
 	public String login(LoginDto model) {
 		Optional<UserModel> user = repository.findByEmail(model.getEmail());
@@ -110,11 +118,12 @@ public class UserService implements IUserService {
 				+ "Forgot password: http://localhost:8080/forgotpassword");
 	}
 
+	// Reset password/forgot password
 	@Override
-	public String forgotPassword(LoginDto model) {
-		Optional<UserModel> user = repository.findByEmail(model.getEmail());
+	public String forgotPassword(String email, String newPassword) {
+		Optional<UserModel> user = repository.findByEmail(email);
 		if (user.isPresent()) {
-			user.get().setPassword(model.getPassword());
+			user.get().setPassword(newPassword);
 			repository.save(user.get());
 			emailsender.sendEmail(user.get().getEmail(), "Email for BookStore", 
 			"Password reset successful");
@@ -123,11 +132,12 @@ public class UserService implements IUserService {
 		else throw new BookStoreException("User Not Found");
 	}
 
+	// Reset password/change password
 	@Override
-	public String resetPassword(LoginDto model) {
-		Optional<UserModel> user = repository.findByEmail(model.getEmail());
-		if(user.isPresent() && user.get().getPassword().equals(model.getPassword())) {
-			user.get().setPassword(model.getNewPassword());
+	public String resetPassword(String email, String password, String newPassword) {
+		Optional<UserModel> user = repository.findByEmail(email);
+		if(user.isPresent() && user.get().getPassword().equals(password)) {
+			user.get().setPassword(newPassword);
 			repository.save(user.get());
 			return "Password reset successful";	
 		}

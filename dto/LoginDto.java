@@ -14,8 +14,5 @@ public class LoginDto {
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,}$", 
 			message = "Enter valid password")
 	private String password;
-	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,}$", 
-			message = "Enter valid new password")
-	private String newPassword;
 
 }

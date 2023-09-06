@@ -17,6 +17,7 @@ public class BookService implements IBookService {
 	@Autowired
 	BookRepository repository;
 
+	// Add data
 	@Override
 	public BookModel insert(BookDTO model) {
 		BookModel book = new BookModel(model);
@@ -24,11 +25,13 @@ public class BookService implements IBookService {
 		return book;
 	}
 
+	// Get data
 	@Override
 	public List<BookModel> getAll() {
 		return repository.findAll();
 	}
 
+	// Get data by Id
 	@Override
 	public BookModel getById(int id) {
 		Optional<BookModel> book = repository.findById(id);
@@ -38,6 +41,7 @@ public class BookService implements IBookService {
 		else throw new BookStoreException("Book Not Found");
 	}
 
+	// Delete data by Id
 	@Override
 	public String deleteById(int id) {
 		Optional<BookModel> book = repository.findById(id);
@@ -48,6 +52,7 @@ public class BookService implements IBookService {
 		else throw new BookStoreException("Book Not Found");
 	}
 
+	// Update data by Id
 	@Override
 	public BookModel updateById(int id, BookDTO model) {
 		Optional<BookModel> book = repository.findById(id);
@@ -59,12 +64,14 @@ public class BookService implements IBookService {
 		else throw new BookStoreException("Book Not Found");
 	}
 
+	// Search by book name
 	@Override
-	public List<BookModel> searchByName(String bookName) {
-		Optional<List<BookModel>> book = repository.findByBookName(bookName);
+	public List<BookModel> searchByName(String bookname) {
+		Optional<List<BookModel>> book = repository.findByBookName(bookname);
 		return book.get();
 	}
 
+	// Update book quantity
 	@Override
 	public BookModel updateQuantityById(int id, String quantity) {
 		Optional<BookModel> book = repository.findById(id);
@@ -76,11 +83,13 @@ public class BookService implements IBookService {
 		else throw new BookStoreException("Book Not Found");
 	}
 
+	// Get data by Ascending order
 	@Override
 	public List<BookModel> sortingAsce() {
 		return repository.findAll();
 	}
 
+	// Get data by Descending order
 	@Override
 	public List<BookModel> sortingDesc() {
 		Optional<List<BookModel>> book = repository.sortingDesc();

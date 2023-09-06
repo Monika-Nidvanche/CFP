@@ -8,24 +8,34 @@ import com.bookstore.bookstoreapplication.entity.UserModel;
 
 public interface IUserService {
 
+	// User Registration
 	UserModel register(UserDTO model);
 
+	// Get data
 	List<UserModel> getAll();
 
+	// Get data by Id
 	UserModel getById(int id);
 
+	// Get data by Email
 	UserModel getByEmail(String email);
 
+	// Delete data by Id
 	String deleteById(int id);
 
+	// Update data by Email
 	UserModel updateByEmail(String email, UserDTO model);
 	
+	// Get data by token
 	UserModel getByToken(String token);
 
+	// Login
 	String login(LoginDto model);
 
-	String forgotPassword(LoginDto model);
+	// Reset password/forgot password
+	String forgotPassword(String email, String newPassword);
 
-	String resetPassword(LoginDto model);
+	// Reset password/change password
+	String resetPassword(String email, String password, String newPassword);
 
 }
