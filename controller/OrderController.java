@@ -12,39 +12,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookstore.bookstoreapplication.dto.CartDTO;
+import com.bookstore.bookstoreapplication.dto.OrderDTO;
 import com.bookstore.bookstoreapplication.dto.responseDTO;
-import com.bookstore.bookstoreapplication.entity.CartModel;
-import com.bookstore.bookstoreapplication.service.ICartService;
+import com.bookstore.bookstoreapplication.entity.OrderModel;
+import com.bookstore.bookstoreapplication.service.IOrderService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/cart")
-public class CartController {
+@RequestMapping("/order")
+public class OrderController {
 	
 	@Autowired
-	ICartService service;
-
+	IOrderService service;
+	
 	// Add data
 	@PostMapping("/insert")
-	public ResponseEntity<responseDTO> insert(@Valid @RequestBody CartDTO modeldto) {
+	public ResponseEntity<responseDTO> insert(@Valid @RequestBody OrderDTO modeldto) {
 
-		CartModel book = service.insert(modeldto);
+		OrderModel book = service.insert(modeldto);
 		responseDTO response = new responseDTO("Book added successfully", book);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.CREATED);
 
 	}
-
+	
 	// Get data
 	@GetMapping("/getAll")
 	public ResponseEntity<responseDTO> getAll() {
 
-		List<CartModel> cart = service.getAll();
-		responseDTO response = new responseDTO("List of Cart", cart);
+		List<OrderModel> order = service.getAll();
+		responseDTO response = new responseDTO("List of Order", order);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.ACCEPTED);
 
 	}
@@ -53,8 +52,8 @@ public class CartController {
 	@GetMapping("/getById/{Id}")
 	public ResponseEntity<responseDTO> getById(@PathVariable int Id) {
 
-		CartModel cart = service.getById(Id);
-		responseDTO response = new responseDTO("Cart for Id " + Id, cart);
+		OrderModel order = service.getById(Id);
+		responseDTO response = new responseDTO("Order for Id " + Id, order);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
 
 	}
@@ -71,21 +70,21 @@ public class CartController {
 	
 	// Update data by Id
 	@PutMapping("/updateById/{Id}")
-	public ResponseEntity<responseDTO> updateById(@PathVariable int Id, @Valid @RequestBody CartDTO modeldto) {
+	public ResponseEntity<responseDTO> updateById(@PathVariable int Id, @Valid @RequestBody OrderDTO modeldto) {
 
-		CartModel cart = service.updateById(Id, modeldto);
-		responseDTO response = new responseDTO("Updated successfully", cart);
+		OrderModel order = service.updateById(Id, modeldto);
+		responseDTO response = new responseDTO("Updated successfully", order);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
 
 	}
 	
-	// Update book quantity
-	@PutMapping("/updateQuantity/{Id}")
-	public ResponseEntity<responseDTO> updateQuantityById(@PathVariable int Id, @RequestParam String quantity) {
+	// Cancel order
+	@PutMapping("/cancelOrder/{Id}")
+	public ResponseEntity<responseDTO> cancelorderById(@PathVariable int Id) {
 
-		CartModel cart = service.updateQuantityById(Id, quantity);
-		responseDTO response = new responseDTO("Updated successfully", cart);
-		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
+		String message = service.cancelorderById(Id);
+		responseDTO response = new responseDTO("Order cancelled", message);
+		return new ResponseEntity<responseDTO>(response, HttpStatus.ACCEPTED);
 
 	}
 

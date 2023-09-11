@@ -28,8 +28,8 @@ public class UserService implements IUserService {
 
 	// User Registration
 	@Override
-	public UserModel register(UserDTO model) {
-		UserModel user = new UserModel(model);
+	public UserModel register(UserDTO modeldto) {
+		UserModel user = new UserModel(modeldto);
 		repository.save(user);
 		String token = bookstoretoken.createToken(user.getUserID());
 		System.out.println(token);
@@ -83,10 +83,10 @@ public class UserService implements IUserService {
 
 	// Update data by Email
 	@Override
-	public UserModel updateByEmail(String email, UserDTO model) {
+	public UserModel updateByEmail(String email, UserDTO modeldto) {
 		Optional<UserModel> user = repository.findByEmail(email);
 		if (user.isPresent()) {
-			user = Optional.of(new UserModel(user.get().getUserID(), model));
+			user = Optional.of(new UserModel(user.get().getUserID(), modeldto));
 			repository.save(user.get());
 			String token = bookstoretoken.createToken(user.get().getUserID());
 			System.out.println(token);
@@ -109,9 +109,11 @@ public class UserService implements IUserService {
 
 	// Login
 	@Override
-	public String login(LoginDto model) {
-		Optional<UserModel> user = repository.findByEmail(model.getEmail());
-		if(user.isPresent() && user.get().getPassword().equals(model.getPassword())) {
+	public String login(LoginDto modeldto) {
+		Optional<UserModel> user = repository.findByEmail(modeldto.getEmail());
+		if(user.isPresent() && user.get().getPassword().equals(modeldto.getPassword())) {
+			String token = bookstoretoken.createToken(user.get().getUserID());
+			System.out.println(token);
 			return "User login successful";
 		}
 		else throw new BookStoreException("Invalid username or password. "

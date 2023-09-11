@@ -9,7 +9,7 @@ import com.bookstore.bookstoreapplication.entity.UserModel;
 public interface IUserService {
 
 	// User Registration
-	UserModel register(UserDTO model);
+	UserModel register(UserDTO modeldto);
 
 	// Get data
 	List<UserModel> getAll();
@@ -24,13 +24,13 @@ public interface IUserService {
 	String deleteById(int id);
 
 	// Update data by Email
-	UserModel updateByEmail(String email, UserDTO model);
+	UserModel updateByEmail(String email, UserDTO modeldto);
 	
 	// Get data by token
 	UserModel getByToken(String token);
 
 	// Login
-	String login(LoginDto model);
+	String login(LoginDto modeldto);
 
 	// Reset password/forgot password
 	String forgotPassword(String email, String newPassword);
