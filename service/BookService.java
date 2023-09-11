@@ -19,8 +19,8 @@ public class BookService implements IBookService {
 
 	// Add data
 	@Override
-	public BookModel insert(BookDTO model) {
-		BookModel book = new BookModel(model);
+	public BookModel insert(BookDTO modeldto) {
+		BookModel book = new BookModel(modeldto);
 		repository.save(book);
 		return book;
 	}
@@ -54,10 +54,10 @@ public class BookService implements IBookService {
 
 	// Update data by Id
 	@Override
-	public BookModel updateById(int id, BookDTO model) {
+	public BookModel updateById(int id, BookDTO modeldto) {
 		Optional<BookModel> book = repository.findById(id);
 		if (book.isPresent()) {
-			book = Optional.of(new BookModel(book.get().getBookId(), model));
+			book = Optional.of(new BookModel(book.get().getBookId(), modeldto));
 			repository.save(book.get());
 			return book.get();
 		} 

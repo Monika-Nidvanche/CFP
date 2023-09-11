@@ -8,7 +8,7 @@ import com.bookstore.bookstoreapplication.entity.BookModel;
 public interface IBookService {
 
 	// Add data
-	BookModel insert(BookDTO model);
+	BookModel insert(BookDTO modeldto);
 
 	// Get data
 	List<BookModel> getAll();
@@ -20,7 +20,7 @@ public interface IBookService {
 	String deleteById(int id);
 
 	// Update data by Id
-	BookModel updateById(int id, BookDTO model);
+	BookModel updateById(int id, BookDTO modeldto);
 
 	// Search by book name
 	List<BookModel> searchByName(String bookname);

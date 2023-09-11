@@ -30,9 +30,9 @@ public class UserController {
 
 	// User Registration
 	@PostMapping("/register")
-	public ResponseEntity<responseDTO> register(@Valid @RequestBody UserDTO model) {
+	public ResponseEntity<responseDTO> register(@Valid @RequestBody UserDTO modeldto) {
 
-		UserModel user = service.register(model);
+		UserModel user = service.register(modeldto);
 		responseDTO response = new responseDTO("Registration successful", user);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.CREATED);
 
@@ -81,9 +81,9 @@ public class UserController {
 	// Update data by Email
 	@PutMapping("/updateUserByEmail/{Email}")
 	public ResponseEntity<responseDTO> updateByEmail(@PathVariable String Email, 
-			@Valid @RequestBody UserDTO model) {
+			@Valid @RequestBody UserDTO modeldto) {
 
-		UserModel user = service.updateByEmail(Email, model);
+		UserModel user = service.updateByEmail(Email, modeldto);
 		responseDTO response = new responseDTO("Updated successfully", user);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
 

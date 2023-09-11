@@ -31,9 +31,9 @@ public class BookController {
 
 	// Add data
 	@PostMapping("/insert")
-	public ResponseEntity<responseDTO> insert(@Valid @RequestBody BookDTO model) {
+	public ResponseEntity<responseDTO> insert(@Valid @RequestBody BookDTO modeldto) {
 
-		BookModel book = service.insert(model);
+		BookModel book = service.insert(modeldto);
 		responseDTO response = new responseDTO("Book added successfully", book);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.CREATED);
 
@@ -71,9 +71,9 @@ public class BookController {
 	
 	// Update data by Id
 	@PutMapping("/updateBookById/{Id}")
-	public ResponseEntity<responseDTO> updateById(@PathVariable int Id, @Valid @RequestBody BookDTO model) {
+	public ResponseEntity<responseDTO> updateById(@PathVariable int Id, @Valid @RequestBody BookDTO modeldto) {
 
-		BookModel book = service.updateById(Id, model);
+		BookModel book = service.updateById(Id, modeldto);
 		responseDTO response = new responseDTO("Updated successfully", book);
 		return new ResponseEntity<responseDTO>(response, HttpStatus.OK);
 

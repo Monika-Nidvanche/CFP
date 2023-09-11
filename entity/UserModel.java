@@ -27,23 +27,23 @@ public class UserModel {
 	private Date dob;
 	private String password;
 
-	public UserModel(UserDTO model) {
-		this.firstName = model.getFirstName();
-		this.lastName = model.getLastName();
-		this.email = model.getEmail();
-		this.address = model.getAddress();
-		this.dob = model.getDob();
-		this.password = model.getPassword();
+	public UserModel(UserDTO modeldto) {
+		this.firstName = modeldto.getFirstName();
+		this.lastName = modeldto.getLastName();
+		this.email = modeldto.getEmail();
+		this.address = modeldto.getAddress();
+		this.dob = modeldto.getDob();
+		this.password = modeldto.getPassword();
 	}
 
-	public UserModel(int userId, UserDTO model) {
+	public UserModel(int userId, UserDTO modeldto) {
 		this.UserID = userId;
-		this.firstName = model.getFirstName();
-		this.lastName = model.getLastName();
-		this.email = model.getEmail();
-		this.address = model.getAddress();
-		this.dob = model.getDob();
-		this.password = model.getPassword();
+		this.firstName = modeldto.getFirstName();
+		this.lastName = modeldto.getLastName();
+		this.email = modeldto.getEmail();
+		this.address = modeldto.getAddress();
+		this.dob = modeldto.getDob();
+		this.password = modeldto.getPassword();
 	}
 
 }
