@@ -25,23 +25,23 @@ public class BookModel {
 	private String price;
 	private String quantity;
 	
-	public BookModel(BookDTO modeldto) {
-		this.bookName = modeldto.getBookName();
-		this.autherName = modeldto.getAutherName();
-		this.bookDescription = modeldto.getBookDescription();
-		this.bookImg = modeldto.getBookImg();
-		this.price = modeldto.getPrice();
-		this.quantity = modeldto.getQuantity();
+	public BookModel(BookDTO model) {
+		this.bookName = model.getBookName();
+		this.autherName = model.getAutherName();
+		this.bookDescription = model.getBookDescription();
+		this.bookImg = model.getBookImg();
+		this.price = model.getPrice();
+		this.quantity = model.getQuantity();
 	}
 
-	public BookModel(int bookID, BookDTO modeldto) {
+	public BookModel(int bookID, BookDTO model) {
 		this.bookId = bookID;
-		this.bookName = modeldto.getBookName();
-		this.autherName = modeldto.getAutherName();
-		this.bookDescription = modeldto.getBookDescription();
-		this.bookImg = modeldto.getBookImg();
-		this.price = modeldto.getPrice();
-		this.quantity = modeldto.getQuantity();
+		this.bookName = model.getBookName();
+		this.autherName = model.getAutherName();
+		this.bookDescription = model.getBookDescription();
+		this.bookImg = model.getBookImg();
+		this.price = model.getPrice();
+		this.quantity = model.getQuantity();
 	}
 
 }
